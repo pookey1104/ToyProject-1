@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>새 글 등록</title>
+</head>
+<body>
+    <h1>TodoList</h1>
+        <form action="{%url 'todolist:write' %}" method="post">
+            {%csrf_token%}
+            <input type="text" name="content" class="col-8" style="height: 40px;" placeholder="할 일을 입력하세요">
+            <input type="submit" value="등록" name="submit">
+        </form>
+        <br><br>
+</body>
+</html>

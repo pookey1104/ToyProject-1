@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TodoList</title>
+</head>
+<body>
+    <a href="{% url 'accounts:login' %}">로그인</a>
+    <a href="{% url 'accounts:logout' %}">로그아웃</a>
+    <a href="{% url 'accounts:register' %}">회원가입</a>
+
+    <h1>todo list</h1>
+
+    <p><a href = "{% url 'todolist:write' %}"><button>새 글 등록</button></a></p>
+
+    {% for todo in todos%}
+    <div class="todoitem">
+        <div class="todocontent">
+            <input type="checkbox" name="check" {% if todo.checked %}checked{% endif %} value="1">
+            <label for="check"> {{ todo.content }} {{todo.author}}
+                <a href="{% url 'todolist:rewrite' id=todo.pk %}"><button>수정하기</button></a>  
+                <a href="{% url 'todolist:delete' id=todo.pk %}"><button>삭제하기</button></a>
+            </label>
+        </div>
+    </div>
+    {% endfor %}
+    </body>
+</html>
