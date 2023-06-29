@@ -17,10 +17,20 @@ def login(request):
 
 def register(request):
     if request.method == 'POST':
-        if request.POST['password'] == request.POST['password2']:
-            user = User.objects.create_user(username=request.POST['username'], password=request.POST['password'])
+        username = request.POST['username']
+        password = request.POST['password']
+        password2 = request.POST['password2']
+        
+        if User.objects.filter(username=username).exists():
+            return render(request, 'register.html', {'error': '이미 존재하는 아이디입니다.'})
+        
+        if password == password2:
+            user = User.objects.create_user(username=username, password=password)
             auth.login(request, user)
             return render(request, 'login.html')
+        else:
+            return render(request, 'register.html', {'error': '비밀번호가 일치하지 않습니다.'})
+    
     return render(request, 'register.html')
 
 def logout(request):

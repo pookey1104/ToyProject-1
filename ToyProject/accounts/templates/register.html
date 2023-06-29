@@ -100,17 +100,23 @@
       </ul>
     </navigation>
     <script>
-      function password_check() {
-        var pwCheck = document.userInfo;
-        if (pwCheck.password.value != pwCheck.password2.value) {
-          alert("비밀번호를 동일하게 입력하세요.");
-          pwCheck.password.value = "";
-          pwCheck.password2.value = "";
-          event.preventDefault();
-          return false;
-        }
-        return true;
+    function password_check() {
+      var pwCheck = document.userInfo;
+      if (pwCheck.password.value !== pwCheck.password2.value) {
+        alert("비밀번호를 동일하게 입력하세요.");
+        pwCheck.password.value = "";
+        pwCheck.password2.value = "";
+        event.preventDefault();
+      return false;
       }
-    </script>
+
+      var error = "{{ error }}";
+      if (error) {
+        alert(error);
+      return false;
+      }
+    return true;
+    }
+  </script>
   </body>
 </html>
