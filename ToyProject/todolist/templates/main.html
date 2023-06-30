@@ -10,7 +10,7 @@
     <link
       rel="stylesheet"
       type="text/css"
-      href="{% static 'main_style.css' %}"
+      href="{% static 'css/main_style.css' %}"
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -22,14 +22,12 @@
   <body>
     <navigation class="nav-left">
       <div class="nav-left-img">
-        {% load static %}
         <img src="{% static 'image/hand.png' %}" alt="고양이 손" />
       </div>
     </navigation>
     <section class="sec">
       <div class="content">
         <div class="cat-img">
-          {% load static %}
           <img src="{% static 'image/cat.png' %}" alt="고양이" />
         </div>
         <div class="new-write">
@@ -64,7 +62,6 @@
                       <div class="todo-write-writer">{{todo.author}}</div>
                     </div>
                     <div class="todo-button">
-                      {% load static %}
                       <a href="{% url 'todolist:rewrite' id=todo.pk %}"
                         ><img
                           src="{% static 'image/write.png' %}"
@@ -95,7 +92,6 @@
         <li>|</li>
         <li><a href="{% url 'accounts:register' %}">회원가입</a></li>
         {% endif %}
-        
       </ul>
     </navigation>
   </body>
