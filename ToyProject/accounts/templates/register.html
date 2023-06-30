@@ -10,8 +10,9 @@
     <link
       rel="stylesheet"
       type="text/css"
-      href="{% static 'register_style.css' %}"
+      href="{% static 'css/register_style.css' %}"
     />
+    <script src="{% static 'js/register.js' %}"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -22,14 +23,12 @@
   <body>
     <navigation class="nav-left">
       <div class="nav-left-img">
-        {% load static %}
         <img src="{% static 'image/hand.png' %}" alt="고양이 손" />
       </div>
     </navigation>
     <section class="sec">
       <div class="content">
         <div class="cat-img">
-          {% load static %}
           <img src="{% static 'image/cat.png' %}" alt="고양이" />
         </div>
         <div class="text-title">
@@ -39,7 +38,7 @@
           method="POST"
           action="{% url 'accounts:register' %}"
           name="userInfo"
-          onsubmit="return password_check();"
+          onsubmit="return password_check(event);"
         >
           {% csrf_token %}
           <div class="wrap">
@@ -94,23 +93,10 @@
         <li><a href="{% url 'accounts:logout' %}">로그아웃</a></li>
         {% else %}
         <li><a href="{% url 'accounts:login' %}">로그인</a></li>
-        {% endif %}
         <li>|</li>
         <li><a href="{% url 'accounts:register' %}">회원가입</a></li>
+        {% endif %}
       </ul>
     </navigation>
-    <script>
-      function password_check() {
-        var pwCheck = document.userInfo;
-        if (pwCheck.password.value != pwCheck.password2.value) {
-          alert("비밀번호를 동일하게 입력하세요.");
-          pwCheck.password.value = "";
-          pwCheck.password2.value = "";
-          event.preventDefault();
-          return false;
-        }
-        return true;
-      }
-    </script>
   </body>
 </html>
