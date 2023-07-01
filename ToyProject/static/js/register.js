@@ -11,6 +11,10 @@ function password_check() {
   var error = "이미 존재하는 아이디입니다.";
   if (error) {
     alert(error);
+    pwCheck.username.value = "";
+    pwCheck.password.value = "";
+    pwCheck.password2.value = "";
+    event.preventDefault();
     return false;
   }
 

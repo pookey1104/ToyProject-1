@@ -41,6 +41,7 @@
           {% for todo in todos%}
           <div class="todoitem">
             <div class="todocontent">
+              {% if request.user.is_authenticated %}
               <input
                 type="checkbox"
                 id="check{{ todo.pk }}"
@@ -52,7 +53,9 @@
                 endif
                 %}
                 value="1"
+                onchange="saveCheckboxState({{ todo.pk }})"
               />
+              {% endif %}
               <label for="check{{ todo.pk }}">
                 <span></span><span></span>
                 <div class="todo-box">
@@ -94,5 +97,20 @@
         {% endif %}
       </ul>
     </navigation>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(function(checkbox) {
+          const todoId = checkbox.id.replace("check", "");
+          const storedValue = localStorage.getItem(`todo_${todoId}`);
+          if (storedValue) {
+            checkbox.checked = JSON.parse(storedValue);
+          }
+          checkbox.addEventListener("change", function() {
+            localStorage.setItem(`todo_${todoId}`, checkbox.checked);
+          });
+        });
+      });
+    </script>
   </body>
 </html>

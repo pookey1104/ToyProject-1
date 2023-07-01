@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import auth
+from todolist.models import Todo
 
 def login(request):
     if request.method == "POST":
@@ -11,7 +13,7 @@ def login(request):
             auth.login(request, user)
             return redirect('todolist:main')
         else:
-            return render(request, 'login.html')
+            return render(request, 'login.html', {'error': '입력한 내용을 다시 확인해주세요.'})
     else: 
         return render(request, 'login.html')
 
@@ -29,10 +31,17 @@ def register(request):
             auth.login(request, user)
             return render(request, 'login.html')
         else:
-            return render(request, 'register.html', {'error': '비밀번호가 일치하지 않습니다.'})
+            return render(request, 'register.html', {'error': '비밀번호를 동일하게 입력하세요.'})
     
-    return render(request, 'register.html')
+    return render(request, 'register.html', {'error': ''})
 
 def logout(request):
     auth.logout(request)
+    return redirect('todolist:main')
+
+@login_required
+def update_todo_status(request, todo_id):
+    todo = Todo.objects.get(pk=todo_id)
+    todo.checked = not todo.checked 
+    todo.save()
     return redirect('todolist:main')

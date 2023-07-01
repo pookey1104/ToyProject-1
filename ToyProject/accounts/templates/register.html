@@ -39,6 +39,7 @@
           action="{% url 'accounts:register' %}"
           name="userInfo"
           onsubmit="return password_check(event);"
+          
         >
           {% csrf_token %}
           <div class="wrap">
