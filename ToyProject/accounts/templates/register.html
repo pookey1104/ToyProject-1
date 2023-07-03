@@ -12,13 +12,13 @@
       type="text/css"
       href="{% static 'css/register_style.css' %}"
     />
-    <script src="{% static 'js/register.js' %}"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Praise&display=swap"
       rel="stylesheet"
     />
+    <script src="{% static 'js/register.js' %}"></script>
   </head>
   <body>
     <navigation class="nav-left">
@@ -38,8 +38,7 @@
           method="POST"
           action="{% url 'accounts:register' %}"
           name="userInfo"
-          onsubmit="return password_check(event);"
-          
+          onsubmit="return password_check(event, '{{ error }}');"
         >
           {% csrf_token %}
           <div class="wrap">
@@ -99,5 +98,11 @@
         {% endif %}
       </ul>
     </navigation>
+    <script>
+      var error = "{{ error }}";
+      if (error) {
+        alert(error);
+      }
+    </script>
   </body>
 </html>

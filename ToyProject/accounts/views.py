@@ -33,7 +33,7 @@ def register(request):
         else:
             return render(request, 'register.html', {'error': '비밀번호를 동일하게 입력하세요.'})
     
-    return render(request, 'register.html', {'error': ''})
+    return render(request, 'register.html')
 
 def logout(request):
     auth.logout(request)
